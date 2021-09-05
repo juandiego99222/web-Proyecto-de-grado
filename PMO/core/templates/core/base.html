@@ -69,10 +69,14 @@
         	<a href="/page/3/" class="link">Cookies</a>-->
           {% load pages_extras %}
           {% get_page_list as page_list %}
+          {% if page_list %}
           {% for page in page_list %}
             <a href="{% url 'page' page.id page.title|slugify %}" class="link">{{page.title}} </a> {% if not forloop.last %}.{%endif%}
              
           {% endfor %}
+          {% else %}
+          <a href=""></a>
+          {% endif %}
 		</p>
         <p class="m-0 mbt1">&copy; Oficina de Gestion de Proyectos 2021</p>
       </div>
