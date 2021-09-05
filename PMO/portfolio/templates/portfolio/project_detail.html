@@ -1,0 +1,163 @@
+{% extends 'core/baseCrud.html' %}
+{% load static %}
+ {% block title %}{{project.title}}{% endblock %}
+{% block content %}
+
+
+<head>
+  <style>
+    li a:hover:not(.active) {
+      background-color: cadetblue;
+      color: white;
+    }
+
+    .table {
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      text-align: right;
+      
+  
+    }
+  
+    .table th {
+      padding: 5px;
+      font-size: 16px;
+      background-color: #83aec0;
+      background-image: url(fondo_th.png);
+      background-repeat: repeat-x;
+      color: #FFFFFF;
+      border-right-width: 1px;
+      border-bottom-width: 1px;
+      border-right-style: solid;
+      border-bottom-style: solid;
+      border-right-color: #558FA6;
+      border-bottom-color: #558FA6;
+      font-family: “Trebuchet MS”, Arial;
+      text-transform: uppercase;
+    }
+  </style>
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700,700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+  <!-- Estilos -->
+  <link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'core/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'core/css/main.css' %}" rel="stylesheet">
+</head>
+
+<body style=" margin: 0;">
+
+ 
+
+  <ul
+    style=" font-size: 1.4em; margin-bottom: 10px; position:fixed; list-style-type:none; margin:0; padding:0; width:25%; overflow:auto;">
+    
+    
+    <li class="nav-item; " style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="{% url 'projects:project' project.id project.title|slugify  %}"
+        class="nav-link text-dark font-italic text; ">
+        <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+        General
+      </a>
+    </li>
+    <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="{% url 'projects:documents' project.id project.title|slugify  %}" class="nav-link text-dark font-italic">
+        <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+        Documentos
+      </a>
+    </li>
+    <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="{% url 'projects:recursos' project.id project.title|slugify  %}" class="nav-link text-dark font-italic">
+        <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
+        Recursos financieros
+      </a>
+    </li>
+    <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="{% url 'projects:cronograma' project.id project.title|slugify  %}" class="nav-link text-dark font-italic">
+        <i class="fa fa-area-chart mr-3 text-primary fa-fw"></i>
+        Cronograma
+      </a>
+    </li>
+    <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="#" class="nav-link text-dark font-italic">
+        <i class="fa fa-line-chart mr-3 text-primary fa-fw"></i>
+        Indicadores
+      </a>
+    </li>
+  </ul>
+  
+  <div class="container p-4" style=" margin-bottom: 10px;">
+    <div class="row">
+      
+      <div class="col-md-3" style="float:left;"></div>
+      <div class="col-md-9" style="float:right;">
+        <legend align="center" style="font-size: 1.4em; margin-bottom: 10px; text-transform: uppercase;">{{project.title}} </legend>
+        <hr style="height:1px;border:none;color:#333;background-color:#333;">
+        <table class="table table-bordered table-hover ">
+          <thead>
+            <tr>
+              <th></th>
+              <th style="text-align:center;">Detalles</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Nombre</th>
+              <td style="text-align:right;">{{project.title}}</td>
+            </tr>
+            <tr>
+              <th>Descripción</th>
+              <td style="text-align:right;">{{project.content|striptags|safe|truncatechars:"1000"|linebreaksbr}}</td>
+            </tr>
+            <tr>
+              <th>Responsable</th>
+              <td style="text-align:center;">{{project.author}}</td>
+            </tr>
+            <tr>
+              <th>Fase</th>
+              <td style="text-align:center;">{{project.phase}}</td>
+            </tr>
+            <tr>
+              <th>Fecha de inicio</th>
+              <td style="text-align:center;">{{project.created}}</td>
+            </tr>
+            <tr>
+              <th>Fecha de finalización</th>
+              <td style="text-align:center;">{{project.completed}}</td>
+            </tr>
+            <tr>
+              <th>Objetivos</th>
+              <td style="text-align:right;">{{project.objetivos|linebreaksbr}}</td>
+            </tr>
+            <tr>
+              <th>Alcance</th>
+              <td style="text-align:right;">{{project.alcance|linebreaksbr}}</td>
+            </tr>
+            <tr>
+
+              <th>Interesados</th>
+
+              <td style="text-align:right;">{{ interested.name|linebreaksbr }}</td>
+
+            </tr>
+            <tr>
+              <th>Hitos</th>
+              <td style="text-align:right;">{{ hitos.descriptionHito|linebreaksbr }}</td>
+            </tr>
+            <tr>
+              <th>Riesgos</th>
+              <td style="text-align:right;">{{riesgos.descriptionRisk|linebreaksbr }}</td>
+            </tr>
+
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+
+
+{% endblock %}

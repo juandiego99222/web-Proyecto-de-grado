@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block title %}Portafolio{% endblock %}
+
+{% block content %}
+{% for project in projects reversed %} <!-- el reversed da la vuelta a la lista-->
+
+    <div class="container3" >
+
+      <div class="container4">
+        <h2 class="tituloTarjeta" >{{project.title}}</h2> 
+        <p class="autor">Lider: {{project.author}}</p>
+        <hr>
+        <p class="alinear">{{project.content}}</p>
+      </div>
+      
+      
+
+    </div>
+              
+{% endfor %}
+{% endblock %}

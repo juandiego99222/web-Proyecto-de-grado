@@ -1,0 +1,222 @@
+{% extends 'core/baseCrud.html' %}
+{% load static %}
+{% block title %}Crear página{% endblock %}
+{% block content %}
+<script type="text/javascript" src="{% static 'ckeditor/css/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/css/ckeditor/ckeditor.js' %}"></script>
+<link href="{% static 'css/custom_ckeditor.css' %}" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport"
+  content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<style>
+  abbr[title] {
+    text-decoration: none;
+    cursor: default !important;
+    border: none;
+    font-weight: bold;
+  }
+
+  a {
+    color: blue;
+  }
+
+  .seccionToggle {
+    height: calc(50vh-50px);
+    background: #fff;
+    color: #001F3F; 
+    display: none;
+  }
+
+  .btn-toggle {
+    line-height: 50px;
+    font-size: 24px;
+    color: #000;
+    display: block;
+  }
+</style>
+
+<main role="main">
+  <div class="container" style="height:100%; width:100%">
+    <div class="row mt-3 mb-5">
+      <div class="col-md-12">
+        <legend align="center" style="font-size: 1.4em; margin-bottom: 10px;">CREAR PROYECTO</legend>
+        <hr style="height:1px;border:none;color:#333;background-color:#333;">
+        <form action="" method="post">{% csrf_token %}
+
+          <abbr title="NOMBRE DEL PROYECTO">{{form.title.label}}</abbr>
+          {{form.title}} <br>
+          <abbr
+            title="DEFINICIÓN Y CARACTERIZACIÓN DE LA IDEA CENTRAL DE LO QUE SE QUIERE REALIZAR">{{form.content.label}}</abbr>
+          {{form.content}} <br>
+
+
+          <div class="col-md-5" style="float:left;">
+
+            <abbr title="FECHA DE INICIO DEL PROYECTO">{{form.created.label}}</abbr>&nbsp; &nbsp;
+            &nbsp; &nbsp;
+            {{form.created}} <br><br>
+            <abbr title="FECHA ESTIMADA DE FINALIZACION DEL PROYECTO">{{form.completed.label}}</abbr>&nbsp;
+            {{form.completed}}<br><br>
+
+          </div>
+
+          <div class="col-md-5" style="float:right;">
+            <abbr title="ENCARGADO DEL PROYECTO">{{form.author.label}}</abbr>&nbsp;
+            {{form.author}} &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<br><br>
+            <abbr title="ETAPA EN LA QUE SE ENCUENTRA EL PROYECTO">{{form.phase.label}}</abbr>&nbsp;&nbsp;&nbsp;
+            {{form.phase}} <br><br>
+          </div>
+          <br><br><br><br><br>
+
+
+          <abbr
+            title="DEFINE LAS METAS O PROPOSITOS DE LO QUE SE QUIERE ALCANZAR AL REALIZAR EL PROYECTO">{{form.objetivos.label}}</abbr><br>
+          {{form.objetivos}} <br>
+
+          <abbr title="TEXTO EMERGENTE QUE SE MOSTRARÁ AL PASAR EL CURSOR">{{form.alcance.label}}</abbr>
+          {{form.alcance}} <br>
+          <abbr
+            title="AQUI SE DEFINE A TODAS LAS PERSONAS U ORGANIZACIONES A QUIENES VA DIRIGIDO EL PROYECTO, O A QUIENES LES AFECTA DE ALGUNA MANERA LA REALIZACION DE ESTE">Interesados</abbr>
+          {{form2.name}} <br>
+
+
+          <!--formulario hitos-->
+          <abbr
+            title="AQUI SE DEFINE LAS ETAPAS O ACONTECIMIENTOS IMPORTANTES DURANTE EL DESARROLLO DE TODO EL PROYECTO (ESTA SECCION DEBE ACTUALIZARCE CONFORME AVANZA EL PROYECTO)">Hitos</abbr>
+          {{form4.descriptionHito}} <br>
+
+          <!--formulario riesgos-->
+          <abbr
+            title="EVENTO O CONDICIÓN QUE, SI OCURRE, TIENE UN EFECTO SOBRE DEL PROYECTO, PUEDEN SER POSITIVOS O NEGATIVOS. EJEMPLO: AUMENTO DE LOS COSTES DEL PROYECTO, RETRASOS DEL PROYECTO, OTROS">Riesgos</abbr>
+          {{form5.descriptionRisk}} <br><br>
+
+
+          <!--formulario presupuesto-->
+          <abbr
+            title="VALORACIÓN TOTAL DE LOS RECURSOS NECESARIOS QUE SE LE ASIGNARIÓN AL PROYECTO">Presupuesto</abbr>&nbsp;
+          &nbsp;
+          <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModal1">
+            Añadir
+          </button><br><br>
+          <hr>
+
+          <!-- Modal presupuesto-->
+          <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Presupuesto</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+
+                  {{form6.descriptionBudget}} <br>
+                  <label for="{{form6.amountBudget.name}}"><strong>Valor</strong></label>&nbsp; &nbsp;&nbsp; &nbsp;
+                  {{form6.amountBudget}} <br><br>
+                </div>
+                <div class="modal-footer">
+
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--formulario costos-->
+          <div class="col-md-5" style="float:left; ">
+            <abbr
+              title="ESTIMACION O DEFINICION DE LOS RECURSOS QUE SE HAN UTILIZADO O SE PLANEAN UTILIZAR DURANTE EL PROYECTO, LA SUMA DE LOS COSTOS NO DEBE SUPERAR EL PESUPUESTO TOTAL ">Costos</abbr>
+            {{ form_cost.management_form }}
+
+            {% for ft in form_cost %}
+            <div class="inlineform">
+              <br>
+              {{ft.descriptionCost}}
+              <label for="">Valor</label>&nbsp; &nbsp;&nbsp; &nbsp; {{ft.amountCost}}
+
+            </div>
+            {% endfor %}
+            <br><br><br>
+          </div>
+
+          <!--formulario cronograma-->
+          <div class="col-md-6" style="float:right;">
+            <abbr
+              title="AQUI SE REGISTRAN LAS ACTIVIDADES DEL PROYECTO, CON EL FIN DE DARLE SEGUIMIENTO A LAS MISMAS">Cronograma</abbr>
+              
+              {{ form_schedule.management_form }}
+
+              {% for aa in form_schedule %}
+              <div class="inlineform1">
+                <br>
+                {{aa.descriptionSchedule}}
+                <label for="">Fecha Inicio</label>&nbsp; &nbsp;&nbsp; &nbsp;{{aa.created}} <br>
+                <label for="">Fecha Fin</label>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; {{aa.completed}} <br>
+                <label for="">Duración</label>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;{{aa.duration}} <br>
+                <label for="">Orden</label>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{aa.order}}
+              </div>
+              {% endfor %}
+            
+            <br><br><br>
+           
+          </div>
+
+
+          <div class="text-center">
+            <input type="submit" class="btn btn-primary btn-block" value="Crear Proyecto" />
+          </div>
+        </form>
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+</main>
+
+
+
+{% endblock %}
+<script src="{% static 'jquery-3.5.1.min.js' %}"></script>
+<script src="{% static 'bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'jquery.formset.js' %}"></script>
+{% block scripts %}
+
+
+
+<script type="text/javascript">
+  $(function () {
+    $('.inlineform').formset({
+      prefix: '{{ form_cost.prefix }}',
+      addText: 'Agregar Costo',
+      deleteText: 'Quitar Costo',
+    });
+  })
+</script>
+
+
+<script type="text/javascript">
+  $(function () {
+    $('.inlineform1').formset({
+      prefix: '{{ form_schedule.prefix }}',
+      addText: 'Agregar Actividad',
+      deleteText: 'Quitar Actividad',
+    });
+  })
+</script>
+
+{% endblock scripts %}

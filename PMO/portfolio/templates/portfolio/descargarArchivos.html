@@ -1,0 +1,215 @@
+{% extends 'core/baseCrud.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    width: 100%;
+    height: 100%;
+    font-family: sans-serif;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 40px;
+    color: #6a6a6a;
+    margin-top: 100 px;
+    font-weight: 100;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .container1 {
+    width: 100%;
+    max-width: 1200px;
+    height: 430px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+  }
+
+  .container1 .card {
+    width: 330px;
+    height: 430px;
+    border-radius: 8px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin: 20px;
+    text-align: center;
+    transition: all 0.25s;
+  }
+
+  .container1 .card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .container1 .card img {
+    width: 330px;
+    height: 220px;
+  }
+
+  .container1 .card h4 {
+    font-weight: 600;
+  }
+
+  .container1 .card p {
+    padding: 0 1rem;
+    font-size: 16px;
+    font-weight: 300;
+  }
+
+  .container1 .card a {
+
+    font-weight: 500;
+    text-decoration: none;
+    color: #3498db;
+  }
+
+
+  li a:hover:not(.active) {
+    background-color: cadetblue;
+    color: white;
+  }
+
+  .table {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: right;
+
+
+  }
+
+  .table th {
+    padding: 5px;
+    font-size: 16px;
+    background-color: #83aec0;
+    background-image: url(fondo_th.png);
+    background-repeat: repeat-x;
+    color: #FFFFFF;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-right-color: #558FA6;
+    border-bottom-color: #558FA6;
+    font-family: “Trebuchet MS”, Arial;
+    text-transform: uppercase;
+  }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no,maximum-scale=1.0,minimum-scale=1.0">
+
+
+</head>
+
+<body style=" margin: 0;">
+
+
+  <ul
+    style=" font-size: 1.4em; margin-bottom: 10px; position:fixed; list-style-type:none; margin:0; padding:0; width:25%; overflow:auto;">
+
+
+    <li class="nav-item; " style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="{% url 'projects:project' project.id project.title|slugify  %}"
+        class="nav-link text-dark font-italic text; ">
+        <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+        General
+      </a>
+    </li>
+    <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="{% url 'projects:documents' project.id project.title|slugify  %}" class="nav-link text-dark font-italic">
+        <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+        Documentos
+      </a>
+    </li>
+    <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="{% url 'projects:recursos' project.id project.title|slugify  %}" class="nav-link text-dark font-italic">
+        <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
+        Recursos financieros
+      </a>
+    </li>
+    <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="{% url 'projects:cronograma' project.id project.title|slugify  %}"
+        class="nav-link text-dark font-italic">
+        <i class="fa fa-area-chart mr-3 text-primary fa-fw"></i>
+        Cronograma
+      </a>
+    </li>
+    <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="#" class="nav-link text-dark font-italic">
+        <i class="fa fa-line-chart mr-3 text-primary fa-fw"></i>
+        Indicadores
+      </a>
+    </li>
+  </ul>
+
+
+
+  <div class="container p-4" style=" margin-bottom: 10px; ">
+    <div class="row">
+
+      <div class="col-md-3" style="float:left;"></div>
+      <div class="col-md-9" style="float:right;">
+        <legend align="center" style="font-size: 1.4em; margin-bottom: 10px; text-transform: uppercase;">
+          {{project.title}} </legend>
+
+        <hr style="height:1px;border:none;color:#333;background-color:#333;">
+
+        <div class="container1">
+            
+            {% for post in file %}
+            <div class="card">
+              <img src="https://i.ibb.co/Fxpq5Cr/documento.png">
+              <h4>{{post.title}}</h4>
+              {%if post.url%}
+              <p>{{post.url}}</p>
+              {% else %}
+              <p></p>
+              {% endif %}
+              <br><br><br>
+
+              {%if post.upload%}
+              <a href="{{post.upload.url}}" download="{{post.upload.url}}">Descargar</a>
+              {% else %}
+              <a href=""></a>
+              {% endif %}
+            </div>
+            {% endfor %}
+            
+            
+
+
+          
+
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
+
+
+{% endblock %}

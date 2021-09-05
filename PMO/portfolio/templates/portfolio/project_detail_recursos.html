@@ -1,0 +1,189 @@
+{% extends 'core/baseCrud.html' %}
+{% load static %}
+
+
+{% block title %}{{project.title}}{% endblock %}
+{% block content %}
+
+
+
+<head>
+  <style>
+    li a:hover:not(.active) {
+      background-color: cadetblue;
+      color: white;
+    }
+    .table {
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      text-align: right;
+      
+  
+    }
+  
+    .table th {
+      padding: 5px;
+      font-size: 16px;
+      background-color: #83aec0;
+      background-image: url(fondo_th.png);
+      background-repeat: repeat-x;
+      color: #FFFFFF;
+      border-right-width: 1px;
+      border-bottom-width: 1px;
+      border-right-style: solid;
+      border-bottom-style: solid;
+      border-right-color: #558FA6;
+      border-bottom-color: #558FA6;
+      font-family: “Trebuchet MS”, Arial;
+      text-transform: uppercase;
+    }
+  </style>
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700,700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+  <!-- Estilos -->
+  <link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'core/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'core/css/main.css' %}" rel="stylesheet">
+</head>
+
+<body style=" margin: 0;">
+
+  <ul
+    style=" font-size: 1.4em; margin-bottom: 10px; position:fixed; list-style-type:none; margin:0; padding:0; width:25%; overflow:auto;">
+    <li class="nav-item; " style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="{% url 'projects:project' project.id project.title|slugify  %}" class="nav-link text-dark font-italic text; ">
+        <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+        General
+      </a>
+    </li>
+    <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="{% url 'projects:documents' project.id project.title|slugify  %}" class="nav-link text-dark font-italic">
+        <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+        Documentos
+      </a>
+    </li>
+    <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="{% url 'projects:recursos' project.id project.title|slugify  %}" class="nav-link text-dark font-italic">
+        <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
+        Recursos financieros
+      </a>
+    </li>
+    <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="{% url 'projects:cronograma' project.id project.title|slugify  %}" class="nav-link text-dark font-italic">
+        <i class="fa fa-area-chart mr-3 text-primary fa-fw"></i>
+        Cronograma
+      </a>
+    </li>
+    <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="#" class="nav-link text-dark font-italic">
+        <i class="fa fa-line-chart mr-3 text-primary fa-fw"></i>
+        Indicadores
+      </a>
+    </li>
+  </ul>
+  <div class="container p-4" style=" margin-bottom: 10px;">
+    <div class="row">
+      <div class="col-md-3" style="float:left;"></div>
+      <div class="col-md-9" style="float:right;">
+        <legend align="center" style="font-size: 1.4em; margin-bottom: 10px;text-transform: uppercase;">{{project.title}} </legend>
+        <hr style="height:1px;border:none;color:#333;background-color:#333;text-transform: uppercase;">
+        
+        <br>
+
+        <legend id="aaa" style="font-size: 1.4em; margin-bottom: 10px;text-transform: uppercase;"> </legend>
+        <br>
+
+        <table id= "tabla" class="table table-bordered table-hover " >
+          <thead>
+            <tr>
+              <th style="text-align:center;">COSTOS: {{ project.title }}</th>
+              <th style="text-align:center;">Valor en Pesos</th>
+            </tr>
+          </thead>
+          {% for costos in costos %}
+          <tbody>
+
+            <td>{{costos.descriptionCost|striptags|safe|truncatechars:"1000"}}</td>
+            <td id="costoUnitario">{{costos.amountCost}}</td>
+ 
+          </tbody>
+          {% endfor %}
+          
+
+          
+        </table> <br><br><br>
+
+
+        <table  id="tabla2" class="table table-bordered table-hover " >
+          <thead>
+            <tr>
+              <th style="text-align:center;">PRESUPUESTO</th>
+              <th style="text-align:center;">Valor en Pesos</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <td><strong>PRESUPUESTO INICIAL PARA PROYECTO:</strong> {{project.title}}</td><!--{{presupuesto.descriptionBudget|striptags|safe|truncatechars:"1000"}}-->
+            <td id="PresupuestoInicial">{{presupuesto.amountBudget}}</td>
+            
+          </tbody>
+          
+        </table>
+        
+       
+        <script >
+
+          //tabla costo
+          let total=0;
+          let celdasCosto=document.querySelectorAll('td + td');
+          let presu= document.getElementById('PresupuestoInicial').innerHTML
+          
+
+          for(let i=0;i<celdasCosto.length;i++){
+            total += parseInt(celdasCosto[i].firstChild.data );
+          }
+
+          let nuevaFila=document.createElement('tr');
+          let celdaTotal= document.createElement('td');
+          let textoCeldaTotal = document.createTextNode('TOTAL COSTOS:');
+          celdaTotal.appendChild(textoCeldaTotal);
+
+          nuevaFila.appendChild(celdaTotal);
+
+          let celdaValorTotal= document.createElement('td');
+          let textoCeldaValorTotal = document.createTextNode((total-presu));
+          
+          celdaValorTotal.appendChild(textoCeldaValorTotal);
+          nuevaFila.appendChild(celdaValorTotal);
+          
+          document.getElementById('tabla').appendChild(nuevaFila);
+          
+          //tabla presupuesto
+
+          let nuevaFila2=document.createElement('tr');
+          let celdaTotal2= document.createElement('td');
+          let textoCeldaTotal2 = document.createTextNode('PRESUPUESTO DISPONIBLE');
+          celdaTotal2.appendChild(textoCeldaTotal2);
+
+          nuevaFila2.appendChild(celdaTotal2);
+
+          let celdaValorTotal2= document.createElement('td');
+          let textoCeldaValorTotal2 = document.createTextNode((presu-(total-presu)));
+          celdaValorTotal2.appendChild(textoCeldaValorTotal2);
+          nuevaFila2.appendChild(celdaValorTotal2);
+          
+          document.getElementById('tabla2').appendChild(nuevaFila2);
+
+          texto= "PRESUPUESTO DISPONIBLE: "
+          document.getElementById('aaa').innerHTML=texto + (presu-(total-presu)) ;
+        </script>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+
+
+{% endblock %}

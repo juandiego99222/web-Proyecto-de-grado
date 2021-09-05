@@ -1,0 +1,117 @@
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% extends 'core/baseCrud.html' %}
+{% load bootstrap %}
+{% load static %}
+{% block title %}Proyectos{% endblock %}
+
+{% block content %}
+
+<style>
+  label {
+    display: none
+  }
+
+  .table {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: right;
+    
+
+  }
+
+  .table th {
+    padding: 5px;
+    font-size: 16px;
+    background-color: #83aec0;
+    background-image: url(fondo_th.png);
+    background-repeat: repeat-x;
+    color: #FFFFFF;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-right-color: #558FA6;
+    border-bottom-color: #558FA6;
+    font-family: “Trebuchet MS”, Arial;
+    text-transform: uppercase;
+  }
+</style>
+
+<div class="container p-4">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-12 search">
+        <form method="get">
+          <div id="custom-search-input">
+
+            <div class="input-group mb-4">
+              <div class="col-md-11 search">
+                {{ filter.form|bootstrap }}</div>
+              <div>
+                <button type="submit" class="btn btn-outline-secondary"><i class="fa fa-search"></i></button>
+              </div>
+
+            </div>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <div>
+      <table class="table table-bordered table-hover " id="example">
+        <thead>
+          <tr>
+            <th style=" text-align:center;">Título proyecto</th>
+            <th style="text-align:center;">Descripción</th>
+            <th style="text-align:center;">Responsable</th>
+            <th style="text-align:center;">Agregar Documentos </th>
+            <th style="text-align:center;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for snipped in filter.qs|dictsort:"id" reversed %}
+
+
+
+          <!-- dictsort:"id" reversed = ordena por id en la lista alreves-->
+          <tr>
+
+            <td style="text-align:center;">{{snipped.title}}</td>
+            <td>{{snipped.content|striptags|safe|truncatechars:"200"}}</td>
+            <td style="text-align:center;">{{snipped.author}}</td>
+            <td style="text-align:center;">
+              <a href="{% url 'projects:subirA' snipped.id %}" class="btn btn-primary  "><i class="fa fa-plus-square"></i></a>
+            </td>
+            <td style="text-align:center;">
+              <a href="{% url 'projects:project' snipped.id snipped.title|slugify  %}" class="btn btn-primary  "><i class="fa fa-eye"></i></a>
+              {% if request.user.is_staff %}
+              <a href="{% url 'projects:update' snipped.id %}" class="btn btn-secondary "><i class="fa fa-edit"></i></a>
+              <a href="{% url 'projects:delete' snipped.id %}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+              {% endif %}
+            </td>
+
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock %}
