@@ -24,7 +24,7 @@ SECRET_KEY = '+u$uml075pj$%whboasa%%!=(b!mb!se_ed&*3q&@&u=*-4o9x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+#hola
 ALLOWED_HOSTS = []
 
 
