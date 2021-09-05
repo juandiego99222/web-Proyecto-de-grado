@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'registration',#aqui se añade la app, y despues ir abajo completamente a auth redirects
    # 'admin_interface',
-    'colorfield',
+   # 'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
