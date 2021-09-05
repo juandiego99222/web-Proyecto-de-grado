@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'registration',#aqui se añade la app, y despues ir abajo completamente a auth redirects
-    'admin_interface',
+   # 'admin_interface',
     'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'profiles',
     'documentos',
     'django_filters',
-    'bootstrapform',
+    #'bootstrapform',
     
 ]
 X_FRAME_OPTIONS='SAMEORIGIN'
