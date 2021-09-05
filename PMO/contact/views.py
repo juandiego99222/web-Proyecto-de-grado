@@ -25,5 +25,5 @@ def contact(request):
                 email.send()
                 return redirect(reverse('contact')+"?ok") 
             except:
-                return redirect(reverse('contact')+"?ok")  #reverse es algo parecido al tag urls, en caso de que se cambie la url no existan problemas
+                return redirect(reverse('contact')+"?NoSeEnvioElMensaje")  #reverse es algo parecido al tag urls, en caso de que se cambie la url no existan problemas
     return render(request, "contact/contact.html",{'form':contact_form})   #y lo enviamos al templeate en un diccionario de contexto

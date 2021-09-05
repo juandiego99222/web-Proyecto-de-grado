@@ -152,7 +152,9 @@ CKEDITOR_CONFIGS = {
         ]
     }
 }
-
+#para errores visitar:
+#https://stackoverflow.com/questions/26697565/django-smtpauthenticationerror
+#https://support.google.com/mail/answer/7126229?visit_id=637664577701779041-1946219617&rd=2#cantsignin&zippy=%2Cno-puedo-acceder-a-mi-cliente-de-correo-electr%C3%B3nico
 #Email config 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER='oficinadeproyectos2021@gmail.com'
