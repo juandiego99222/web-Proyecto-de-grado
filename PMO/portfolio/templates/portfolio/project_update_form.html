@@ -60,7 +60,17 @@
           <abbr title="TEXTO EMERGENTE QUE SE MOSTRARÁ AL PASAR EL CURSOR">{{form.alcance.label}}</abbr>
           {{form.alcance}} <br>
           <abbr title="AQUI SE DEFINE A TODAS LAS PERSONAS U ORGANIZACIONES A QUIENES VA DIRIGIDO EL PROYECTO, O A QUIENES LES AFECTA DE ALGUNA MANERA LA REALIZACION DE ESTE">Interesados</abbr>
-          {{form2.name}} <br>
+          {{ form_interested.management_form }}
+
+            {% for ft in form_interested %}
+
+            <div class="inline4">
+              <br>
+              {{ ft }}
+
+            </div>
+            {% endfor %}
+            <br><br><br>
 
           <!--formulario hitos-->
           <abbr title="AQUI SE DEFINE LAS ETAPAS O ACONTECIMIENTOS IMPORTANTES DURANTE EL DESARROLLO DE TODO EL PROYECTO (ESTA SECCION DEBE ACTUALIZARCE CONFORME AVANZA EL PROYECTO) ">Hitos</abbr>
@@ -162,6 +172,16 @@
 {% endblock %}
 
 {% block scripts %}
+
+<script type="text/javascript">
+  $(function () {
+    $('.inline4').formset({
+      prefix: '{{ form_interested.prefix }}',
+      addText: 'Agregar Interesado',
+      deleteText: 'Quitar Interesado',
+    });
+  })
+</script>
 
 <script type="text/javascript">
   $(function () {

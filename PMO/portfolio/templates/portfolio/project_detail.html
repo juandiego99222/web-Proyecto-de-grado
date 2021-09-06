@@ -86,6 +86,12 @@
       </a>
     </li>
     <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="{% url 'projects:interesados' project.id project.title|slugify  %}" class="nav-link text-dark font-italic">
+        <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
+        Interesados
+      </a>
+    </li>
+    <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
       <a href="#" class="nav-link text-dark font-italic">
         <i class="fa fa-line-chart mr-3 text-primary fa-fw"></i>
         Indicadores
@@ -144,13 +150,7 @@
               <th>Alcance</th>
               <td style="text-align:right;">{{project.alcance|linebreaksbr}}</td>
             </tr>
-            <tr>
-
-              <th>Interesados</th>
-
-              <td style="text-align:right;">{{ interested.name|linebreaksbr }}</td>
-
-            </tr>
+            
             <tr>
               <th>Hitos</th>
               <td style="text-align:right;">{{ hitos.descriptionHito|linebreaksbr }}</td>

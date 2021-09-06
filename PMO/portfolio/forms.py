@@ -26,9 +26,9 @@ class InterestedForm(forms.ModelForm):
 
     class Meta:
         model =Interested
-        fields = ['name']
+        fields = ['name','interes','influencia']
         widgets = {
-            'name': forms.Textarea(attrs={'class':'form-control', 'rows':2}),
+            'name': forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre Interesado'}),
             
             
         }

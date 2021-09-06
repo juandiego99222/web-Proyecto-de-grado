@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-from .views import ProyectoArchivosDetailView, ProyectoListView,ProyectoDetailView,ProyectoCreate,ProyectoUpdate,ProyectoDelete, ProyectoRecursosDetailView,  ScheduleDetailView,ArchivoCreate,ProyectoRiesgosDetailView
+from .views import ProyectoArchivosDetailView, ProyectoListView,ProyectoDetailView,ProyectoCreate,ProyectoUpdate,ProyectoDelete, ProyectoRecursosDetailView,  ScheduleDetailView,ArchivoCreate,ProyectoRiesgosDetailView,ProyectoInteresadosDetailView
 
 
 urlpatterns = [
@@ -23,6 +23,8 @@ projects_patterns = ([
     path('<int:pk>/<slug:slug>/cronograma/', ScheduleDetailView.as_view(), name='cronograma'), 
     
     path('<int:pk>/<slug:slug>/riesgos/',ProyectoRiesgosDetailView.as_view(), name='riesgos'), 
+
+    path('<int:pk>/<slug:slug>/interesados/',ProyectoInteresadosDetailView.as_view(), name='interesados'), 
 
     path('subir/<int:pk>/', ArchivoCreate.as_view(), name='subirA'),
     path('<int:pk>/<slug:slug>/documents/', ProyectoArchivosDetailView.as_view(), name="documents"),

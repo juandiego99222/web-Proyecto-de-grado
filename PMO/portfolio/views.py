@@ -82,7 +82,7 @@ class ProyectoDetailView(DetailView):
         pk =self.kwargs.get('pk', 0)
         context = super().get_context_data(**kwargs)
         
-        context['interested'] = Interested.objects.get(project_id=pk)
+        context['interested'] = Interested.objects.filter(project_id=pk)
         context['hitos'] = Hito.objects.get(project_id=pk)
         context['riesgos'] = Risk.objects.filter(project_id=pk)
         
@@ -103,9 +103,7 @@ class ProyectoCreate(CreateView):
     
     model = Project
     form_class =ProjectForm #contenido para la pagina create(form)
-    second_form_class= InterestedForm
     four_form_class= HitoForm
-    
     six_form_class= BudgetForm
 
     success_url=reverse_lazy('projects:projects')
@@ -123,10 +121,11 @@ class ProyectoCreate(CreateView):
         form_risk_factory= inlineformset_factory(Project,Risk,form=RiskForm,extra=1)
         form_risk= form_risk_factory()
 
+        form_interested_factory= inlineformset_factory(Project,Interested,form=InterestedForm,extra=1)
+        form_interested= form_interested_factory()
+
         if 'form' not in context:
-            context['form']= self.form_class(self.request.GET)
-        if 'form2' not in context:
-            context['form2']= self.second_form_class(self.request.GET)        
+            context['form']= self.form_class(self.request.GET)      
         if 'form4' not in context:
             context['form4']= self.four_form_class(self.request.GET)
         if 'form6' not in context:
@@ -137,13 +136,14 @@ class ProyectoCreate(CreateView):
             context['form_schedule']= form_schedule
         if 'form_risk' not in context:
             context['form_risk']= form_risk
+        if 'form_interested' not in context:
+            context['form_interested']= form_interested
         
         return context
     #guardar en la base de datos y hacer que se guarde para el proyecto que se esta creando con el id en las foraneas de todos
     def post (self,request, *args, **kwargs):
         self.object= self.get_object
         form =self.form_class(request.POST)
-        form2 =self.second_form_class(request.POST)
         form4 =self.four_form_class(request.POST)
         form6 =self.six_form_class(request.POST)
         form_cost_factory= inlineformset_factory(Project,Cost,form=CostForm,extra=3)
@@ -152,12 +152,11 @@ class ProyectoCreate(CreateView):
         form_schedule= form_schedule_factory(request.POST)
         form_risk_factory= inlineformset_factory(Project,Risk,form=RiskForm,extra=3)
         form_risk= form_risk_factory(request.POST)
+        form_interested_factory= inlineformset_factory(Project,Interested,form=InterestedForm,extra=3)
+        form_interested= form_interested_factory(request.POST)
 
-        if form.is_valid() and form2.is_valid() and  form4.is_valid() and  form6.is_valid() and form_cost.is_valid() and form_schedule.is_valid() and form_risk.is_valid():
-            project= form.save()
-            interesado1= form2.save(commit=False)
-            interesado1.project = form.save()
-            interesado1.save()   
+        if form.is_valid() and form_interested.is_valid() and  form4.is_valid() and  form6.is_valid() and form_cost.is_valid() and form_schedule.is_valid() and form_risk.is_valid():
+            project= form.save()   
             hito1= form4.save(commit=False)
             hito1.project = form.save()
             hito1.save()
@@ -170,10 +169,12 @@ class ProyectoCreate(CreateView):
             form_schedule.save()
             form_risk.instance= project
             form_risk.save()
+            form_interested.instance= project
+            form_interested.save()
               
             return HttpResponseRedirect(self.get_success_url())
         else:
-            return self.render_to_response(self.get_context_data(form=form, form2=form2,form4=form4,form6=form6,form_cost=form_cost,form_schedule=form_schedule,form_risk=form_risk))
+            return self.render_to_response(self.get_context_data(form=form, form_interested=form_interested,form4=form4,form6=form6,form_cost=form_cost,form_schedule=form_schedule,form_risk=form_risk))
 
     
 
@@ -200,7 +201,6 @@ class ProyectoUpdate(StaffRequiredMixin,UpdateView):
         project=Project.objects.filter(id= pk).first()
 
 
-        interesado= self.second_model.objects.get(project_id=pk)
         hito= self.four_model.objects.get(project_id=pk)
         
         presupuesto= self.six_model.objects.get(project_id=pk)
@@ -214,10 +214,11 @@ class ProyectoUpdate(StaffRequiredMixin,UpdateView):
         form_risk_factory= inlineformset_factory(Project,Risk,form=RiskForm,extra=0)
         form_risk= form_risk_factory(instance=project)
 
+        form_interested_factory= inlineformset_factory(Project,Interested,form=InterestedForm,extra=0)
+        form_interested= form_interested_factory(instance=project)
+
         if 'form' not in context:
             context['form']= self.form_class(instance=project)
-        if 'form2' not in context:
-            context['form2']= self.second_form_class(instance=interesado)
         if 'form_cost' not in context:
             context['form_cost']= form_cost
         if 'form4' not in context:
@@ -228,6 +229,8 @@ class ProyectoUpdate(StaffRequiredMixin,UpdateView):
             context['form_schedule']= form_schedule
         if 'form_risk' not in context:
             context['form_risk']= form_risk
+        if 'form_interested' not in context:
+            context['form_interested']= form_interested
         
         context['id']=pk
         
@@ -242,13 +245,12 @@ class ProyectoUpdate(StaffRequiredMixin,UpdateView):
         pk =self.kwargs.get('pk', 0)
         project=Project.objects.get(id= pk)
         
-        interesado= self.second_model.objects.get(project_id=pk)
+        
         hito= self.four_model.objects.get(project_id=pk)
         presupuesto= self.six_model.objects.get(project_id=pk)
 
 
         form=self.form_class(request.POST, instance=project)
-        form2=self.second_form_class(request.POST, instance=interesado)
         form4=self.four_form_class(request.POST, instance=hito)
         form6=self.six_form_class(request.POST, instance=presupuesto)
 
@@ -260,11 +262,14 @@ class ProyectoUpdate(StaffRequiredMixin,UpdateView):
 
         form_risk_factory= inlineformset_factory(Project,Risk,form=RiskForm,extra=3)
         form_risk= form_risk_factory(request.POST,instance=project)
+
+        form_interested_factory= inlineformset_factory(Project,Interested,form=InterestedForm,extra=3)
+        form_interested= form_interested_factory(request.POST,instance=project)
         
-        if  form.is_valid() and form2.is_valid() and form_cost.is_valid() and form4.is_valid()  and form6.is_valid() and form_schedule.is_valid() and form_risk.is_valid() :
+        if  form.is_valid() and form_interested.is_valid() and form_cost.is_valid() and form4.is_valid()  and form6.is_valid() and form_schedule.is_valid() and form_risk.is_valid() :
             
             form.save()
-            form2.save()
+            form_interested.save()
             form_cost.save()
             form4.save()
             form6.save()
@@ -272,7 +277,7 @@ class ProyectoUpdate(StaffRequiredMixin,UpdateView):
             form_risk.save()
             return HttpResponseRedirect(self.get_success_url())
         else:
-            return self.render_to_response(self.get_context_data(form=form, form2=form2,form4=form4,form6=form6,form_cost=form_cost,form_schedule=form_schedule,form_risk=form_risk))
+            return self.render_to_response(self.get_context_data(form=form, form_interested=form_interested,form4=form4,form6=form6,form_cost=form_cost,form_schedule=form_schedule,form_risk=form_risk))
 
 
 
@@ -340,6 +345,31 @@ class ProyectoRiesgosDetailView(DetailView):
         return context
 
     
+@method_decorator(staff_member_required, name='dispatch')#asi agrego el decorador a la clase
+class ProyectoInteresadosDetailView(DetailView):
+    model= Project
+    
+    template_name_suffix='_detail_interesados'
+    
+    def get_context_data(self, **kwargs):
+        
+        pk =self.kwargs.get('pk', 0)
+        context = super().get_context_data(**kwargs)
+        
+        context['interesados'] = Interested.objects.filter(project_id=pk)
+        
+        observar=  Interested.objects.filter(interes= "Bajo",influencia="Baja",project_id=pk)
+        satisfacer= Interested.objects.filter(interes= "Alto",influencia="Baja",project_id=pk)
+        comunicar= Interested.objects.filter(interes= "Bajo",influencia="Alta",project_id=pk)
+        colaborar= Interested.objects.filter(interes= "Alto",influencia="Alta",project_id=pk)
+
+        context['observar']=observar
+        context['satisfacer']=satisfacer
+        context['comunicar']=comunicar
+        context['colaborar']=colaborar
+               
+        
+        return context
  
 @method_decorator(staff_member_required, name='dispatch')#asi agrego el decorador a la clase
 class ArchivoCreate(StaffRequiredMixin,CreateView): 

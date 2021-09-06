@@ -43,7 +43,15 @@ class Project(models.Model):
 
 
 class Interested(models.Model):
-    name = models.CharField(max_length=200, verbose_name= "Nombre Interesado")
+    name = models.CharField(max_length=200, verbose_name= "")
+    interes=models.CharField(max_length=32,null=True,blank=True,choices=[
+        ('Bajo','Bajo'),
+        ('Alto','Alto'),
+    ])
+    influencia=models.CharField(max_length=32,null=True,blank=True,choices=[
+        ('Baja','Baja'),
+        ('Alta','Alta'),
+    ])
     project= models.ForeignKey(Project, verbose_name="Proyecto", on_delete=models.CASCADE,null=True)
     class Meta:
         verbose_name ="interesado"

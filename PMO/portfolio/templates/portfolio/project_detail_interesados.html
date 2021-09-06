@@ -116,105 +116,69 @@
                 <table id="tabla" class="table table-bordered table-hover ">
                     <thead>
                         <tr>
-                            <th style="text-align:center;">Riesgo Bajo</th>
+                            <th style="text-align:center;">satisfacer</th>
+                            
                         </tr>
                     </thead>
-                    {% for RiesgoBajo1 in RiesgoBajo1 %}
+                    {% for satisfacer in satisfacer %}
                     <tbody>
 
-                        <td>{{RiesgoBajo1.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
+                        <td>{{satisfacer.name|striptags|safe|truncatechars:"500"}}</td>
 
                     </tbody>
                     {% endfor %}
-                    {% for RiesgoBajo2 in RiesgoBajo2 %}
+                   
+                   
+
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;">colaborar</th>
+                        </tr>
+                    </thead>
+                    {% for colaborar in colaborar %}
                     <tbody>
 
-                        <td>{{RiesgoBajo2.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
+                        <td>{{colaborar.name|striptags|safe|truncatechars:"500"}}</td>
 
                     </tbody>
                     {% endfor %}
-                    {% for RiesgoBajo3 in RiesgoBajo3 %}
-                    <tbody>
-
-                        <td>{{RiesgoBajo3.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
-
-                    </tbody>
-                    {% endfor %}
-
-
 
 
                     <thead>
                         <tr>
-                            <th style="text-align:center;">Riesgo Moderado</th>
-
+                            <th style="text-align:center;">observar</th>
                         </tr>
                     </thead>
-                    {% for RiesgoModerado1 in RiesgoModerado1 %}
+                    {% for observar in observar %}
                     <tbody>
 
-                        <td>{{RiesgoModerado1.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
+                        <td>{{observar.name|striptags|safe|truncatechars:"500"}}</td>
 
                     </tbody>
                     {% endfor %}
-                    {% for RiesgoModerado2 in RiesgoModerado2 %}
-                    <tbody>
+                    
 
-                        <td>{{RiesgoModerado2.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
-
-                    </tbody>
-                    {% endfor %}
-                    {% for RiesgoModerado3 in RiesgoModerado3 %}
-                    <tbody>
-
-                        <td>{{RiesgoModerado3.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
-
-                    </tbody>
-                    {% endfor %}
-
-
-
-
-
+                    
+                    
 
 
                     <thead>
                         <tr>
-                            <th style="text-align:center;">Riesgo Importante</th>
+                            <th style="text-align:center;">comunicar</th>
                         </tr>
                     </thead>
-                    {% for RiesgoImportante1 in RiesgoImportante1 %}
+                    {% for comunicar in comunicar %}
                     <tbody>
 
-                        <td>{{RiesgoImportante1.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
+                        <td>{{comunicar.name|striptags|safe|truncatechars:"500"}}</td>
 
                     </tbody>
                     {% endfor %}
-                    {% for RiesgoImportante2 in RiesgoImportante2 %}
-                    <tbody>
-
-                        <td>{{RiesgoImportante2.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
-
-                    </tbody>
-                    {% endfor %}
+                    
 
 
 
-
-
-
-                    <thead>
-                        <tr>
-                            <th style="text-align:center;">Riesgo Intolerable</th>
-                        </tr>
-                    </thead>
-                    {% for RiesgoIntolerable in RiesgoIntolerable %}
-                    <tbody>
-
-                        <td>{{RiesgoIntolerable.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
-
-                    </tbody>
-                    {% endfor %}
+                    
 
 
 

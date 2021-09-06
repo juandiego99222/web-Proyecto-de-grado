@@ -9,7 +9,7 @@
 <meta name="viewport"
   content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
 
-  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
 <style>
   abbr[title] {
@@ -26,7 +26,7 @@
   .seccionToggle {
     height: calc(50vh-50px);
     background: #fff;
-    color: #001F3F; 
+    color: #001F3F;
     display: none;
   }
 
@@ -66,9 +66,11 @@
           <div class="col-md-5" style="float:right;">
             <abbr title="ENCARGADO DEL PROYECTO">{{form.author.label}}</abbr>&nbsp;
             {{form.author}} &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<br><br>
-            <abbr title="ETAPA EN LA QUE SE ENCUENTRA EL PROYECTO">{{form.phase.label}}</abbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <abbr
+              title="ETAPA EN LA QUE SE ENCUENTRA EL PROYECTO">{{form.phase.label}}</abbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             {{form.phase}} <br><br>
-            <abbr title="ESTADO EN EL QUE SE ENCUENTRA EL PROYECTO EN EL MOMENTO">{{form.estado.label}}</abbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <abbr
+              title="ESTADO EN EL QUE SE ENCUENTRA EL PROYECTO EN EL MOMENTO">{{form.estado.label}}</abbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             {{form.estado}} <br><br>
           </div>
           <br><br><br><br><br><br>
@@ -82,7 +84,16 @@
           {{form.alcance}} <br>
           <abbr
             title="AQUI SE DEFINE A TODAS LAS PERSONAS U ORGANIZACIONES A QUIENES VA DIRIGIDO EL PROYECTO, O A QUIENES LES AFECTA DE ALGUNA MANERA LA REALIZACION DE ESTE">Interesados</abbr>
-          {{form2.name}} <br>
+          {{ form_interested.management_form }}
+
+          {% for zz in form_interested %}
+          <div class="inline4">
+            <br>
+            {{zz.name}}
+            <label for="">Interes</label>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;{{zz.interes}} <br>
+            <label for="">Influencia</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{zz.influencia}}
+          </div>
+          {% endfor %} <br><br><br>
 
 
           <!--formulario hitos-->
@@ -93,16 +104,16 @@
           <!--formulario riesgos-->
           <abbr
             title="EVENTO O CONDICIÓN QUE, SI OCURRE, TIENE UN EFECTO SOBRE DEL PROYECTO, PUEDEN SER POSITIVOS O NEGATIVOS. EJEMPLO: AUMENTO DE LOS COSTES DEL PROYECTO, RETRASOS DEL PROYECTO, OTROS">Riesgos</abbr>
-            {{ form_risk.management_form }}
+          {{ form_risk.management_form }}
 
-            {% for zz in form_risk %}
-            <div class="inline">
-              <br>
-              {{zz.descriptionRisk}}
-              <label for="">Impacto</label>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;{{zz.impacto}} <br>
-              <label for="">Probabilidad</label>&nbsp;&nbsp;{{zz.probabilidad}}
-            </div>
-            {% endfor %} <br><br><br>
+          {% for zz in form_risk %}
+          <div class="inline">
+            <br>
+            {{zz.descriptionRisk}}
+            <label for="">Impacto</label>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;{{zz.impacto}} <br>
+            <label for="">Probabilidad</label>&nbsp;&nbsp;{{zz.probabilidad}}
+          </div>
+          {% endfor %} <br><br><br>
 
 
           <!--formulario presupuesto-->
@@ -162,22 +173,23 @@
           <div class="col-md-6" style="float:right;">
             <abbr
               title="EN ESTE ASPECTO SE DETERMINAN LAS DIFERENTES ACTIVIDADES DEL PROYECTO Y EL TIEMPO ESTIMADO PARA CADA UNA DE ELLAS.">Cronograma</abbr>
-              
-              {{ form_schedule.management_form }}
 
-              {% for aa in form_schedule %}
-              <div class="inlineform1">
-                <br>
-                {{aa.descriptionSchedule}}
-                <label for="">Fecha Inicio</label>&nbsp; &nbsp;&nbsp; &nbsp;{{aa.created}} <br>
-                <label for="">Fecha Fin</label>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; {{aa.completed}} <br>
-                <label for="">Estado actual</label>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;{{aa.estado}} <br>
-                <label for="">Orden</label>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{aa.order}}
-              </div>
-              {% endfor %}
-            
+            {{ form_schedule.management_form }}
+
+            {% for aa in form_schedule %}
+            <div class="inlineform1">
+              <br>
+              {{aa.descriptionSchedule}}
+              <label for="">Fecha Inicio</label>&nbsp; &nbsp;&nbsp; &nbsp;{{aa.created}} <br>
+              <label for="">Fecha Fin</label>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; {{aa.completed}} <br>
+              <label for="">Estado actual</label>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;{{aa.estado}} <br>
+              <label for="">Orden</label>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{aa.order}}
+            </div>
+            {% endfor %}
+
             <br><br><br>
-           
+
           </div>
 
 
@@ -206,6 +218,16 @@
 <script src="{% static 'bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'jquery.formset.js' %}"></script>
 {% block scripts %}
+
+<script type="text/javascript">
+  $(function () {
+    $('.inline4').formset({
+      prefix: '{{ form_interested.prefix }}',
+      addText: 'Agregar Interesado',
+      deleteText: 'Quitar Interesado',
+    });
+  })
+</script>
 
 <script type="text/javascript">
   $(function () {
