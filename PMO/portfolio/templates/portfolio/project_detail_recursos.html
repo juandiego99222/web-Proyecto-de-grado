@@ -69,6 +69,13 @@
         Recursos financieros
       </a>
     </li>
+    <li class="nav-item; " style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="{% url 'projects:riesgos' project.id project.title|slugify  %}"
+        class="nav-link text-dark font-italic text; ">
+        <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+        Riesgos
+      </a>
+    </li>
     <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
       <a href="{% url 'projects:cronograma' project.id project.title|slugify  %}" class="nav-link text-dark font-italic">
         <i class="fa fa-area-chart mr-3 text-primary fa-fw"></i>

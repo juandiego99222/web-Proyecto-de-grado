@@ -8,7 +8,7 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         
         model =Project
-        fields = ['title','content','alcance','objetivos', 'author', 'phase', 'created', 'completed']
+        fields = ['title','content','alcance','objetivos', 'author', 'phase', 'created', 'completed','estado']
         widgets = {
             'title': forms.TextInput(attrs={'class':'form-control'}),
             'content': forms.Textarea(attrs={'class':'form-control','rows':3}), 
@@ -16,6 +16,7 @@ class ProjectForm(forms.ModelForm):
             'objetivos': forms.Textarea(attrs={'class':'form-control','rows':2}), 
             'created':forms.SelectDateWidget(attrs={'class':'form-control-sm'}), 
             'completed':  forms.SelectDateWidget(  attrs={'class':'form-control-sm'}),
+            
               
         }
        
@@ -61,9 +62,9 @@ class RiskForm(forms.ModelForm):
 
     class Meta:
         model =Risk
-        fields = ['descriptionRisk']
+        fields = ['descriptionRisk','impacto','probabilidad']
         widgets = {
-            'descriptionRisk': forms.Textarea(attrs={'class':'form-control', 'rows':2}),
+            'descriptionRisk': forms.TextInput(attrs={'class':'form-control','placeholder':'Descripción Riesgo' }),
         }
 
 
@@ -81,7 +82,7 @@ class ScheduleForm(forms.ModelForm):
     class Meta:
 
         model =Schedule
-        fields = ['descriptionSchedule','created','completed','duration','project','order']
+        fields = ['descriptionSchedule','created','completed','estado','project','order']
         widgets = {
             'descriptionSchedule': forms.Textarea(attrs={'class':'form-control','rows':1, 'placeholder':'Actividad'}), 
             'created':forms.SelectDateWidget(attrs={'class':'form-control-sm'}), 

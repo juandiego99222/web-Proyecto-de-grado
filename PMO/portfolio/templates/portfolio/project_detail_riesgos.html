@@ -1,15 +1,11 @@
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
 {% extends 'core/baseCrud.html' %}
-
 {% load static %}
 
 
+{% block title %}{{project.title}}{% endblock %}
 {% block content %}
+
+
 
 <head>
     <style>
@@ -50,18 +46,12 @@
     <link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'core/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'core/css/main.css' %}" rel="stylesheet">
-
-
 </head>
-
-
 
 <body style=" margin: 0;">
 
-
     <ul
         style=" font-size: 1.4em; margin-bottom: 10px; position:fixed; list-style-type:none; margin:0; padding:0; width:25%; overflow:auto;">
-
         <li class="nav-item; " style="display: block;  padding: 8px 16px; text-decoration: none;">
             <a href="{% url 'projects:project' project.id project.title|slugify  %}"
                 class="nav-link text-dark font-italic text; ">
@@ -106,51 +96,135 @@
     </ul>
     <div class="container p-4" style=" margin-bottom: 10px;">
         <div class="row">
-
             <div class="col-md-3" style="float:left;"></div>
             <div class="col-md-9" style="float:right;">
                 <legend align="center" style="font-size: 1.4em; margin-bottom: 10px;text-transform: uppercase;">
                     {{project.title}} </legend>
-                <hr style="height:1px;border:none;color:#333;background-color:#333;">
+                <hr style="height:1px;border:none;color:#333;background-color:#333;text-transform: uppercase;">
 
-                <table class="table table-bordered table-hover " id="example">
+                <br>
+
+                <legend style="font-size: 1.4em; margin-bottom: 10px;text-transform: uppercase;">RIESGOS: {{project.title }} </legend>
+                <br>
+
+                <table id="tabla" class="table table-bordered table-hover ">
                     <thead>
                         <tr>
-                            <th style=" text-align:center;">Actividad</th>
-                            <th style="text-align:center;">Comienzo</th>
-                            <th style="text-align:center;">Fin</th>
-                            <th style="text-align:center;">Duración</th>
-                            <th style="text-align:center;">Estado Actual</th>
+                            <th style="text-align:center;">Riesgo Bajo</th>
+                        </tr>
+                    </thead>
+                    {% for RiesgoBajo1 in RiesgoBajo1 %}
+                    <tbody>
+
+                        <td>{{RiesgoBajo1.descriptionRisk|striptags|safe|truncatechars:"200"}}</td>
+
+                    </tbody>
+                    {% endfor %}
+                    {% for RiesgoBajo2 in RiesgoBajo2 %}
+                    <tbody>
+
+                        <td>{{RiesgoBajo2.descriptionRisk|striptags|safe|truncatechars:"200"}}</td>
+
+                    </tbody>
+                    {% endfor %}
+                    {% for RiesgoBajo3 in RiesgoBajo3 %}
+                    <tbody>
+
+                        <td>{{RiesgoBajo3.descriptionRisk|striptags|safe|truncatechars:"200"}}</td>
+
+                    </tbody>
+                    {% endfor %}
+
+
+
+
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;">Riesgo Moderado</th>
 
                         </tr>
                     </thead>
+                    {% for RiesgoModerado1 in RiesgoModerado1 %}
                     <tbody>
-                        {% for actividad in actividad %}
-                        <!-- dictsort:"id" reversed = ordena por id en la lista alreves-->
-                        <tr>
 
-                            <td style="text-align:center;">
-                                {{actividad.descriptionSchedule|striptags|safe|truncatechars:"200"}}
-                            </td>
-                            <td>{{actividad.created}}</td>
-                            <td>{{actividad.completed}}</td>
-                            <td>  </td>
-                            <td>{{actividad.estado}}</td>
-
-
-
-                        </tr>
-                        {% endfor %}
+                        <td>{{RiesgoModerado1.descriptionRisk|striptags|safe|truncatechars:"200"}}</td>
 
                     </tbody>
-                </table>
-                
+                    {% endfor %}
+                    {% for RiesgoModerado2 in RiesgoModerado2 %}
+                    <tbody>
+
+                        <td>{{RiesgoModerado2.descriptionRisk|striptags|safe|truncatechars:"200"}}</td>
+
+                    </tbody>
+                    {% endfor %}
+                    {% for RiesgoModerado3 in RiesgoModerado3 %}
+                    <tbody>
+
+                        <td>{{RiesgoModerado3.descriptionRisk|striptags|safe|truncatechars:"200"}}</td>
+
+                    </tbody>
+                    {% endfor %}
+
+
+
+
+
+
+
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;">Riesgo Importante</th>
+                        </tr>
+                    </thead>
+                    {% for RiesgoImportante1 in RiesgoImportante1 %}
+                    <tbody>
+
+                        <td>{{RiesgoImportante1.descriptionRisk|striptags|safe|truncatechars:"200"}}</td>
+
+                    </tbody>
+                    {% endfor %}
+                    {% for RiesgoImportante2 in RiesgoImportante2 %}
+                    <tbody>
+
+                        <td>{{RiesgoImportante2.descriptionRisk|striptags|safe|truncatechars:"200"}}</td>
+
+                    </tbody>
+                    {% endfor %}
+
+
+
+
+
+
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;">Riesgo Intolerable</th>
+                        </tr>
+                    </thead>
+                    {% for RiesgoIntolerable in RiesgoIntolerable %}
+                    <tbody>
+
+                        <td>{{RiesgoIntolerable.descriptionRisk|striptags|safe|truncatechars:"200"}}</td>
+
+                    </tbody>
+                    {% endfor %}
+
+
+
+                </table> <br><br><br>
+
+
+
+
+
+
             </div>
-
-            
-
         </div>
     </div>
 
 </body>
+
+
+
 {% endblock %}

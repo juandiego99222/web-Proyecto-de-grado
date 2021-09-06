@@ -6,7 +6,9 @@ class ProjectFilter(django_filters.FilterSet):
     class Meta:
        model = Project 
        fields= {
-           'title':['icontains']
+           'title':['icontains'],
+           'estado':['exact']
        }
+       
       
         

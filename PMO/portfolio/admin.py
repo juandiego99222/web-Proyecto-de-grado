@@ -17,7 +17,7 @@ class ProjectAdmin(admin.ModelAdmin):
     fieldsets= (
         ("General",{
             "fields":(
-                'title','content','author','phase'
+                'title','content','author','phase','estado'
             ),
         }),
         ("Fechas",{
@@ -43,3 +43,4 @@ admin.site.register(Risk)
 admin.site.register(Budget)
 admin.site.register(Schedule)
 admin.site.register(Files)
+

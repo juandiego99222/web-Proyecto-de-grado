@@ -1,9 +1,11 @@
 from django.db import models
+from django.db.models.enums import Choices
 from django.utils.timezone import now #zona horaria actual
 from django.contrib.auth.models import User # trae a todos los usuarios registrados en administrador
 
 # Create your models here.
 
+ 
 
 class Phase(models.Model):
     name = models.CharField(max_length=200, verbose_name= "Nombre")
@@ -18,12 +20,18 @@ class Phase(models.Model):
 class Project(models.Model):
     title = models.CharField(max_length=200, verbose_name= "Nombre Proyecto")
     content= models.TextField(verbose_name="Descripcion")
-    author=models.ForeignKey(User,verbose_name="Autor", on_delete= models.SET_NULL, null=True,blank=True)
+    author=models.ForeignKey(User,verbose_name="Encargado", on_delete= models.SET_NULL, null=True,blank=True)
     phase= models.ForeignKey(Phase, verbose_name="Fase", on_delete=models.SET_NULL, null=True,blank=True)
     created= models.DateTimeField(verbose_name="Fecha de creacion",  default=now)
     completed= models.DateTimeField(verbose_name="Fecha de finalizacion",  default=now)
     alcance= models.TextField(verbose_name="Alcance",null=True,blank=True)
     objetivos= models.TextField(verbose_name="Objetivos",null=True,blank=True)
+    estado=models.CharField(max_length=32,null=True,blank=True,choices=[
+        ('Iniciado','Iniciado'),
+        ('En Progreso','En Progreso'),
+        ('Terminado','Terminado'),
+        ('Inactivo','Inactivo'),
+    ])
     
     class Meta:
         verbose_name ="proyecto"
@@ -76,8 +84,18 @@ class Hito(models.Model):
 
 
 class Risk(models.Model):
-    descriptionRisk = models.CharField(max_length=400, verbose_name= "Descripción Riesgo")
+    descriptionRisk = models.CharField(max_length=400, verbose_name= "")
     project= models.ForeignKey(Project, verbose_name="Proyecto", on_delete=models.CASCADE,null=True)
+    impacto=models.CharField(max_length=32,null=True,blank=True,choices=[
+        ('Bajo','Bajo'),
+        ('Medio','Medio'),
+        ('Alto','Alto'),
+    ])
+    probabilidad=models.CharField(max_length=32,null=True,blank=True,choices=[
+        ('Baja','Baja'),
+        ('Media','Media'),
+        ('Alta','Alta'),
+    ])
     class Meta:
         verbose_name ="riesgo"
         verbose_name_plural= "riesgos"   #verbose_name = cambia el nombre por el elegido, en este caso a español
@@ -105,7 +123,10 @@ class Schedule(models.Model):
     descriptionSchedule = models.CharField(max_length=200, verbose_name= "",null=True)
     created= models.DateTimeField(verbose_name="Fecha Inicio",  default=now,null=True)
     completed= models.DateTimeField(verbose_name="Fecha Fin",  default=now,null=True)
-    duration= models.IntegerField(verbose_name="Duración",null=True)
+    estado=models.CharField(max_length=32,null=True,blank=True,choices=[
+        ('En Progreso','En Progreso'),
+        ('Terminada','Terminada'),
+    ])
     project= models.ForeignKey(Project, verbose_name="Proyecto", on_delete=models.CASCADE,null=True)
     order = models.SmallIntegerField(verbose_name="Orden", default=0,null=True,blank=True)
 

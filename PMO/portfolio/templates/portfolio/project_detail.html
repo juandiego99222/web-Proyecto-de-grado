@@ -72,6 +72,13 @@
         Recursos financieros
       </a>
     </li>
+    <li class="nav-item; " style="display: block;  padding: 8px 16px; text-decoration: none;">
+      <a href="{% url 'projects:riesgos' project.id project.title|slugify  %}"
+        class="nav-link text-dark font-italic text; ">
+        <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+        Riesgos
+      </a>
+    </li>
     <li class="nav-item" style="display: block;  padding: 8px 16px; text-decoration: none;">
       <a href="{% url 'projects:cronograma' project.id project.title|slugify  %}" class="nav-link text-dark font-italic">
         <i class="fa fa-area-chart mr-3 text-primary fa-fw"></i>
@@ -93,7 +100,7 @@
       <div class="col-md-9" style="float:right;">
         <legend align="center" style="font-size: 1.4em; margin-bottom: 10px; text-transform: uppercase;">{{project.title}} </legend>
         <hr style="height:1px;border:none;color:#333;background-color:#333;">
-        <table class="table table-bordered table-hover ">
+        <table class="table table-bordered table-hover " id="tabla">
           <thead>
             <tr>
               <th></th>
@@ -108,6 +115,10 @@
             <tr>
               <th>Descripción</th>
               <td style="text-align:right;">{{project.content|striptags|safe|truncatechars:"1000"|linebreaksbr}}</td>
+            </tr>
+            <tr>
+              <th>Porcentaje de Avance</th>
+              <td style="text-align:center;" id="zzz" ></td>
             </tr>
             <tr>
               <th>Responsable</th>
@@ -144,15 +155,26 @@
               <th>Hitos</th>
               <td style="text-align:right;">{{ hitos.descriptionHito|linebreaksbr }}</td>
             </tr>
-            <tr>
-              <th>Riesgos</th>
-              <td style="text-align:right;">{{riesgos.descriptionRisk|linebreaksbr }}</td>
-            </tr>
+            
 
+            <p id="tareasCompletadas" style="display: none;">{{aaa}}</p>
+            <p id="tareasTotal" style="display: none;">{{bbb}}</p>
+            <script >
 
+              //tabla costo
+              
+              let tareasCompletadas= document.getElementById('tareasCompletadas').innerHTML
+              let tareasTotal= document.getElementById('tareasTotal').innerHTML
+              texto="%"
+             
+              //parseFloat(Math.round(((1-((tareasTotal-tareasCompletadas)/tareasTotal))*100) * 100) / 100).toFixed(2);   convertir a 2 decimales
+              document.getElementById('zzz').innerHTML= parseFloat(Math.round(((1-((tareasTotal-tareasCompletadas)/tareasTotal))*100) * 100) / 100).toFixed(2) +texto;
+            </script>
           </tbody>
         </table>
       </div>
+      
+      
     </div>
   </div>
 

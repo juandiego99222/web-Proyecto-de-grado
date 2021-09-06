@@ -46,9 +46,11 @@
           <div class="col-md-5" style="float:right;">
             <abbr title="ENCARGADO DEL PROYECTO">{{form.author.label}}</abbr>&nbsp;
             {{form.author}} &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<br><br>
-            <abbr
-              title="ETAPA EN LA QUE SE ENCUENTRA EL PROYECTO">{{form.phase.label}}</abbr>&nbsp;&nbsp;&nbsp;
+            <abbr title="ETAPA EN LA QUE SE ENCUENTRA EL PROYECTO">{{form.phase.label}}</abbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             {{form.phase}} <br><br>
+            <abbr title="ESTADO EN EL QUE SE ENCUENTRA EL PROYECTO EN EL MOMENTO">{{form.estado.label}}</abbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {{form.estado}} <br><br>
+
           </div>
           <br><br><br><br><br>
 
@@ -66,8 +68,17 @@
 
           <!--formulario riesgos-->
           <abbr title="EVENTO O CONDICIÓN QUE, SI OCURRE, TIENE UN EFECTO SOBRE DEL PROYECTO, PUEDEN SER POSITIVOS O NEGATIVOS. EJEMPLO: AUMENTO DE LOS COSTES DEL PROYECTO, RETRASOS DEL PROYECTO, OTROS">Riesgos</abbr>
-          {{form5.descriptionRisk}} <br><br>
+          {{ form_risk.management_form }}
 
+            {% for ft in form_risk %}
+
+            <div class="inline">
+              <br>
+              {{ ft }}
+
+            </div>
+            {% endfor %}
+            <br><br><br>
           <!--formulario presupuesto-->
           <abbr title="VALORACIÓN TOTAL DE LOS RECURSOS NECESARIOS QUE SE LE ASIGNARIÓN AL PROYECTO">Presupuesto</abbr>&nbsp; &nbsp;
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
@@ -117,16 +128,16 @@
             {% endfor %}
             <br>
           </div>
-
+          
           <!--formulario cronograma-->
           <div class="col-md-6" style="float:right;">
-            <abbr title="AQUI SE REGISTRAN LAS ACTIVIDADES DEL PROYECTO, CON EL FIN DE DARLE SEGUIMIENTO A LAS MISMAS">Cronograma</abbr>
+            <abbr title="EN ESTE ASPECTO SE DETERMINAN LAS DIFERENTES ACTIVIDADES DEL PROYECTO Y EL TIEMPO ESTIMADO PARA CADA UNA DE ELLAS.">Cronograma</abbr>
             {{ form_schedule.management_form }}
 
             {% for aa in form_schedule %}
             <div class="inlineform1">
               <br>
-              {{aa}}
+              {{aa}} 
               
             </div>
 
@@ -151,6 +162,17 @@
 {% endblock %}
 
 {% block scripts %}
+
+<script type="text/javascript">
+  $(function () {
+    $('.inline').formset({
+      prefix: '{{ form_risk.prefix }}',
+      addText: 'Agregar Riesgo',
+      deleteText: 'Quitar Riesgo',
+    });
+  })
+</script>
+
 <script type="text/javascript">
   $(function () {
     $('.inlineform').formset({
