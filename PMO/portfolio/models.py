@@ -132,8 +132,10 @@ class Schedule(models.Model):
     created= models.DateTimeField(verbose_name="Fecha Inicio",  default=now,null=True)
     completed= models.DateTimeField(verbose_name="Fecha Fin",  default=now,null=True)
     estado=models.CharField(max_length=32,null=True,blank=True,choices=[
+        ('Sin empezar','Sin empezar'),
         ('En Progreso','En Progreso'),
         ('Terminada','Terminada'),
+        
     ])
     project= models.ForeignKey(Project, verbose_name="Proyecto", on_delete=models.CASCADE,null=True)
     order = models.SmallIntegerField(verbose_name="Orden", default=0,null=True,blank=True)

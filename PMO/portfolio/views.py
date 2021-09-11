@@ -25,6 +25,9 @@ import os
 from django.http import HttpResponse
 from django.http.response import Http404
 
+from datetime import datetime
+from django.db.models.functions import Coalesce
+
 
 
 def portfolio(request):
@@ -428,6 +431,37 @@ class ScheduleDetailView (DetailView):
         context = super().get_context_data(**kwargs)
         
         context['actividad'] = Schedule.objects.filter(project_id=pk)
+
+        return context
+
+
+class IndicadoresDetailView(DetailView):
+    model = Project
+    template_name = 'portfolio/project_detail_indicadores.html'
+
+    def get_reporte_costos_meses(self, **kwargs):
+        data =[]
+        try:
+            pk =self.kwargs.get('pk', 0)
+            totalcosto= Cost.objects.filter(project_id=pk).aggregate(r=Coalesce(Sum('amountCost'),0)).get('r')
+            data.append(float(totalcosto))  
+        except:
+            pass
+        return data
+
+    
+
+    def get_context_data(self, **kwargs):
+        
+        pk =self.kwargs.get('pk', 0)
+        context = super().get_context_data(**kwargs)
+        
+        context['reporte_costos_meses'] = self.get_reporte_costos_meses()
+        context['presupuesto'] = Budget.objects.get(project_id=pk)
+        
+        context['tareasSinComenzar'] = Schedule.objects.filter(project_id=pk, estado= "Sin empezar").count
+        context['tareasEnProgreso'] = Schedule.objects.filter(project_id=pk, estado= "En Progreso").count
+        context['tareasTerminadas'] = Schedule.objects.filter(project_id=pk, estado= "Terminada").count
 
         return context
 

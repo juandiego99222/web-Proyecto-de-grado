@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-from .views import ProyectoArchivosDetailView, ProyectoListView,ProyectoDetailView,ProyectoCreate,ProyectoUpdate,ProyectoDelete, ProyectoRecursosDetailView,  ScheduleDetailView,ArchivoCreate,ProyectoRiesgosDetailView,ProyectoInteresadosDetailView
+from .views import ProyectoArchivosDetailView, ProyectoListView,ProyectoDetailView,ProyectoCreate,ProyectoUpdate,ProyectoDelete, ProyectoRecursosDetailView,  ScheduleDetailView,ArchivoCreate,ProyectoRiesgosDetailView,ProyectoInteresadosDetailView,IndicadoresDetailView
 
 
 urlpatterns = [
@@ -28,6 +28,8 @@ projects_patterns = ([
 
     path('subir/<int:pk>/', ArchivoCreate.as_view(), name='subirA'),
     path('<int:pk>/<slug:slug>/documents/', ProyectoArchivosDetailView.as_view(), name="documents"),
+
+    path('<int:pk>/<slug:slug>/indicadores/', IndicadoresDetailView.as_view(), name='indicadores'), 
 
     
 ], 'projects')
