@@ -36,6 +36,23 @@
       font-family: “Trebuchet MS”, Arial;
       text-transform: uppercase;
     }
+    
+    .barraStyle{
+      border-radius: 20px;
+      height: 30px;
+      width: 500px;
+    }
+    .barraStyle::-webkit-progress-bar{
+      border-radius: 20px;
+      background: #d8d8d8;
+      
+    }
+    .barraStyle::-webkit-progress-value{
+      background: linear-gradient(to left, #F2709C, #FF9472);
+      border-radius: 20px;
+      
+      
+    }
   </style>
   <!-- Fuentes -->
   <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700,700i" rel="stylesheet">
@@ -46,7 +63,7 @@
   <link href="{% static 'core/css/main.css' %}" rel="stylesheet">
 </head>
 
-<body style=" margin: 0;">
+<body style=" margin: 0;" onload="barra()">
 
  
 
@@ -125,7 +142,8 @@
             </tr>
             <tr>
               <th>Porcentaje de Avance</th>
-              <td style="text-align:center;" id="zzz" ></td>
+              <td> <progress value="0" max="100" id="barra" class="barraStyle"> </progress><p id="zzz"></p>  </td>
+              
             </tr>
             <tr>
               <th>Responsable</th>
@@ -160,7 +178,7 @@
 
             <p id="tareasCompletadas" style="display: none;">{{aaa}}</p>
             <p id="tareasTotal" style="display: none;">{{bbb}}</p>
-            <script >
+            <script type="text/javascript">
 
               //tabla costo
               
@@ -170,6 +188,13 @@
              
               //parseFloat(Math.round(((1-((tareasTotal-tareasCompletadas)/tareasTotal))*100) * 100) / 100).toFixed(2);   convertir a 2 decimales
               document.getElementById('zzz').innerHTML= parseFloat(Math.round(((1-((tareasTotal-tareasCompletadas)/tareasTotal))*100) * 100) / 100).toFixed(2) +texto;
+              function barra(){
+                var barra= document.getElementById('barra')
+                barra.value += parseFloat(Math.round(((1-((tareasTotal-tareasCompletadas)/tareasTotal))*100) * 100) / 100).toFixed(2)
+                
+              }
+              
+             
             </script>
           </tbody>
         </table>
