@@ -6,6 +6,7 @@
 {% extends 'core/baseCrud.html' %}
 {% load bootstrap %}
 {% load static %}
+{% load has_group %}
 {% block title %}Proyectos{% endblock %}
 
 {% block content %}
@@ -27,7 +28,6 @@
     padding: 5px;
     font-size: 14px;
     background-color: #83aec0;
-    background-image: url(fondo_th.png);
     background-repeat: repeat-x;
     color: #FFFFFF;
     border-right-width: 1px;
@@ -72,12 +72,19 @@
       <table class="table table-bordered table-hover " id="example">
         <thead>
           <tr>
+            {% if request.user|has_group:"ADMINISTRADOR" or request.user|has_group:"DIRECTOR" or request.user|has_group:"LIDER" %}
             <th style=" text-align:center;width: 200px;">Título proyecto</th>
             <th style="text-align:center;width: 320px;">Descripción</th>
             <th style="text-align:center; width: 200px;">Responsable</th>
             <th style="text-align:center;">Estado</th>
             <th style="text-align:center;width: 120px;">Documentos </th>
             <th style="text-align:center;width: 120px;">Acciones</th>
+            {% else %}
+            <th style=" text-align:center;width: 200px;">Título proyecto</th>
+            <th style="text-align:center;width: 450px;">Descripción</th>
+            <th style="text-align:center; width: 200px;">Responsable</th>
+            <th style="text-align:center;">Estado</th>
+            {% endif %}
           </tr>
         </thead>
         <tbody>
@@ -88,21 +95,28 @@
 
           <!-- dictsort:"id" reversed = ordena por id en la lista alreves-->
           <tr>
-
+            {% if request.user|has_group:"ADMINISTRADOR" or request.user|has_group:"DIRECTOR" or request.user|has_group:"LIDER" %}
             <td style="text-align:center;">{{snipped.title}}</td>
             <td>{{snipped.content|striptags|safe|truncatechars:"100"}}</td>
             <td style="text-align:center;">{{snipped.author}}</td>
             <td style="text-align:center;">{{snipped.estado}}</td>
             <td style="text-align:center;">
-              <a href="{% url 'projects:subirA' snipped.id %}" class="btn btn-primary  "><i class="fa fa-plus-square"></i></a>
+              <a href="{% url 'projects:subirA' snipped.id %}" class="btn btn-success  "><i class="fa fa-plus-square"></i></a>
             </td>
             <td style="text-align:center;">
               <a href="{% url 'projects:project' snipped.id snipped.title|slugify  %}" class="btn btn-primary  "><i class="fa fa-eye"></i></a>
-              {% if request.user.is_staff %}
               <a href="{% url 'projects:update' snipped.id %}" class="btn btn-secondary "><i class="fa fa-edit"></i></a>
-              <a href="{% url 'projects:delete' snipped.id %}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-              {% endif %}
+           <!--   <a href="{% url 'projects:delete' snipped.id %}" class="btn btn-danger"><i class="fa fa-trash"></i></a>-->
+          
             </td>
+
+            {% else %}
+            <td style="text-align:center;">{{snipped.title}}</td>
+            <td>{{snipped.content|striptags|safe|truncatechars:"100"}}</td>
+            <td style="text-align:center;">{{snipped.author}}</td>
+            <td style="text-align:center;">{{snipped.estado}}</td>
+            
+            {% endif %}
 
             
           </tr>

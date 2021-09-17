@@ -1,7 +1,7 @@
 {% extends 'core/baseCrud.html' %}
 
 {% load static %}
-
+{% load has_group %}
 {% block content %}
 
 <style>
@@ -100,7 +100,7 @@
 
         <hr style="height:1px;border:none;color:#333;background-color:#333;">
 
-        {% if request.user.is_authenticated %}
+        {% if request.user|has_group:"ADMINISTRADOR" or request.user|has_group:"DIRECTOR" or request.user|has_group:"LIDER" %}
         <a class="btn btn-primary " href="{% url 'documents:create' %}">Subir archivo</a> 
         {% endif %}
 

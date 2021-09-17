@@ -1,3 +1,6 @@
+{% load static %}
+{% load has_group %}
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -37,17 +40,17 @@
             <!-- Dropdown -->
             {% if request.user.is_authenticated %}
 
-            {% if request.user.is_staff %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 </i> Proyectos </a>
               <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
                 <a class="dropdown-item" href="{% url 'projects:projects' %}">Ver Proyectos</a>
+                {% if request.user|has_group:"ADMINISTRADOR" or request.user|has_group:"DIRECTOR" or request.user|has_group:"LIDER" %}
                 <a class="dropdown-item" href="{% url 'projects:create' %}">Crear Proyectos</a>
+                {% endif %}
               </div>
             </li>
-            {% endif %}
             
             <li class="nav-item dropdown">
               <a class="nav-link "  
@@ -100,5 +103,5 @@
     {% block scripts %}
     {% endblock scripts %}
   </body>
-
+</body>
 </html>

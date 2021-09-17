@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 class ProfileListView(ListView):
     model = Profile
     template_name = 'profiles/profile_list.html'
-    paginate_by = 5  #paginador
+    paginate_by = 4  #paginador
 
 @method_decorator(login_required,name='dispatch')
 class ProfileDetailView(DetailView):

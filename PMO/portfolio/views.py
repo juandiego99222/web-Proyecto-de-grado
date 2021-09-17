@@ -1,6 +1,8 @@
 
 from django import forms
 from django.contrib.admin.filters import ListFilter
+from django.contrib.auth.models import Group
+from django.core.checks import messages
 from django.core.files.base import File
 from django.db.models.aggregates import Sum
 from django.db.models.fields import files
@@ -8,7 +10,7 @@ from django.db.models.query import QuerySet
 from django.forms import widgets, formset_factory
 from django.shortcuts import render
 from .models import Project,Interested,Cost,Hito,Risk,Budget,Schedule,Files
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, request
 from django.shortcuts import redirect
 from django.contrib.admin.views.decorators import staff_member_required #decorador django
 from django.utils.decorators import method_decorator #decorador de metodos
@@ -29,7 +31,6 @@ from datetime import datetime
 from django.db.models.functions import Coalesce
 
 
-
 def portfolio(request):
 
 
@@ -47,17 +48,21 @@ class StaffRequiredMixin(object):
     #class ProyectoCreate(StaffRequiredMixin, CreateView):  #asi heredo el mixin para que funcione en otra clase
 """
 
+
+        
+
 class StaffRequiredMixin(object):
     #un mixin es una implementacion de varias funcionalidades para una clase para despues estas heredarlas a otras clases creadas, sirve para no crear los mismos metodos en todas las clases
     #este mixin requerira que el usuario sea miembro del staff
     method_decorator(staff_member_required)#aqui importo el decorados para que cuando me registre me lleve a la otra pagina 
     def dispatch(self, request, *args, **kwargs):
+        
         #como se puede observar el decorador me ahorra el metodo if anteriormente hecho
         return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs) #esta funcion se encarga de dovolverme el usuario identificado al yo hacer la peticion create, update o delete, para que luego no me permita acceder a create si el usuario no esta identificado en el admin
         
     #class ProyectoCreate(StaffRequiredMixin, CreateView):  #asi heredo el mixin para que funcione en otra clase
 
-# Crud
+
 
 
 @method_decorator(staff_member_required, name='dispatch')#asi agrego el decorador a la clase
@@ -69,9 +74,10 @@ class ProyectoListView (ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filter'] = ProjectFilter(self.request.GET, queryset=self.get_queryset())
-
-
+       
         return context
+
+    
 
 
 
@@ -105,6 +111,8 @@ class ProyectoDetailView(DetailView):
 class ProyectoCreate(CreateView): 
     
     model = Project
+
+
     form_class =ProjectForm #contenido para la pagina create(form)
     four_form_class= HitoForm
     six_form_class= BudgetForm
@@ -113,6 +121,8 @@ class ProyectoCreate(CreateView):
 
     
     def get_context_data(self,**kwargs):
+
+        
         context = super(ProyectoCreate,self).get_context_data(**kwargs)
         
         form_cost_factory= inlineformset_factory(Project,Cost,form=CostForm,extra=1)
@@ -456,12 +466,24 @@ class IndicadoresDetailView(DetailView):
         pk =self.kwargs.get('pk', 0)
         context = super().get_context_data(**kwargs)
         
+        #diagrama de recursos
         context['reporte_costos_meses'] = self.get_reporte_costos_meses()
         context['presupuesto'] = Budget.objects.get(project_id=pk)
         
+        #diagrama de estado general tareas
         context['tareasSinComenzar'] = Schedule.objects.filter(project_id=pk, estado= "Sin empezar").count
         context['tareasEnProgreso'] = Schedule.objects.filter(project_id=pk, estado= "En Progreso").count
         context['tareasTerminadas'] = Schedule.objects.filter(project_id=pk, estado= "Terminada").count
+
+        context['tareasSinComenzar1'] = Schedule.objects.filter(project_id=pk, estado= "Sin empezar")
+        context['tareasEnProgreso1'] = Schedule.objects.filter(project_id=pk, estado= "En Progreso")
+        context['tareasTerminadas1'] = Schedule.objects.filter(project_id=pk, estado= "Terminada")
+        
+        context['pro'] = Project.objects.get(id=pk)
+
+        
+
+        
 
         return context
 

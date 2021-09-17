@@ -1,12 +1,12 @@
 {% extends 'core/baseCrud.html' %}
 {% load static %}
 
-
+{% load has_group %}
 {% block title %}{{project.title}}{% endblock %}
 {% block content %}
 
 
-
+{% if request.user|has_group:"ADMINISTRADOR" or request.user|has_group:"DIRECTOR" or request.user|has_group:"LIDER" %}
 <head>
     <style>
         li a:hover:not(.active) {
@@ -229,7 +229,7 @@
     </div>
 
 </body>
-
+{% endif %}
 
 
 {% endblock %}

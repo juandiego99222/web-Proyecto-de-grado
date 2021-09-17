@@ -2,6 +2,7 @@
 
 {% load static %}
 
+{% load has_group %}
 {% block content %}
 
 <style>
@@ -129,6 +130,7 @@
   <link href="{% static 'core/css/main.css' %}" rel="stylesheet">
 </head>
 
+{% if request.user|has_group:"ADMINISTRADOR" or request.user|has_group:"DIRECTOR" or request.user|has_group:"LIDER" %}
 <body style=" margin: 0;">
 
 
@@ -228,6 +230,8 @@
     </div>
   </div>
 </body>
+{% endif %}
+
 
 </html>
 

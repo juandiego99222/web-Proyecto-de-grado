@@ -20,13 +20,13 @@ class Phase(models.Model):
 class Project(models.Model):
     title = models.CharField(max_length=200, verbose_name= "Nombre Proyecto")
     content= models.TextField(verbose_name="Descripcion")
-    author=models.ForeignKey(User,verbose_name="Encargado", on_delete= models.SET_NULL, null=True,blank=True)
-    phase= models.ForeignKey(Phase, verbose_name="Fase", on_delete=models.SET_NULL, null=True,blank=True)
+    author=models.ForeignKey(User,verbose_name="Encargado", on_delete= models.SET_NULL, null=True)
+    phase= models.ForeignKey(Phase, verbose_name="Fase", on_delete=models.SET_NULL, null=True)
     created= models.DateTimeField(verbose_name="Fecha de creacion",  default=now)
     completed= models.DateTimeField(verbose_name="Fecha de finalizacion",  default=now)
-    alcance= models.TextField(verbose_name="Alcance",null=True,blank=True)
-    objetivos= models.TextField(verbose_name="Objetivos",null=True,blank=True)
-    estado=models.CharField(max_length=32,null=True,blank=True,choices=[
+    alcance= models.TextField(verbose_name="Alcance",null=True)
+    objetivos= models.TextField(verbose_name="Objetivos",null=True)
+    estado=models.CharField(max_length=32,null=True,choices=[
         ('Iniciado','Iniciado'),
         ('En Progreso','En Progreso'),
         ('Terminado','Terminado'),
@@ -44,11 +44,11 @@ class Project(models.Model):
 
 class Interested(models.Model):
     name = models.CharField(max_length=200, verbose_name= "")
-    interes=models.CharField(max_length=32,null=True,blank=True,choices=[
+    interes=models.CharField(max_length=32,null=True,choices=[
         ('Bajo','Bajo'),
         ('Alto','Alto'),
     ])
-    influencia=models.CharField(max_length=32,null=True,blank=True,choices=[
+    influencia=models.CharField(max_length=32,null=True,choices=[
         ('Baja','Baja'),
         ('Alta','Alta'),
     ])
@@ -94,12 +94,12 @@ class Hito(models.Model):
 class Risk(models.Model):
     descriptionRisk = models.CharField(max_length=400, verbose_name= "")
     project= models.ForeignKey(Project, verbose_name="Proyecto", on_delete=models.CASCADE,null=True)
-    impacto=models.CharField(max_length=32,null=True,blank=True,choices=[
+    impacto=models.CharField(max_length=32,null=True,choices=[
         ('Bajo','Bajo'),
         ('Medio','Medio'),
         ('Alto','Alto'),
     ])
-    probabilidad=models.CharField(max_length=32,null=True,blank=True,choices=[
+    probabilidad=models.CharField(max_length=32,null=True,choices=[
         ('Baja','Baja'),
         ('Media','Media'),
         ('Alta','Alta'),
@@ -131,7 +131,7 @@ class Schedule(models.Model):
     descriptionSchedule = models.CharField(max_length=200, verbose_name= "",null=True)
     created= models.DateTimeField(verbose_name="Fecha Inicio",  default=now,null=True)
     completed= models.DateTimeField(verbose_name="Fecha Fin",  default=now,null=True)
-    estado=models.CharField(max_length=32,null=True,blank=True,choices=[
+    estado=models.CharField(max_length=32,null=True,choices=[
         ('Sin empezar','Sin empezar'),
         ('En Progreso','En Progreso'),
         ('Terminada','Terminada'),
