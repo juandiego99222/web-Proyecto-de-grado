@@ -108,34 +108,45 @@
                 <hr style="height:1px;border:none;color:#333;background-color:#333;text-transform: uppercase;">
 
                 <br>
-
+                <abbr style="text-decoration: none; cursor: default !important; border: none;font-weight: bold; font-size: 1.4em; margin-bottom: 10px;" title="Determina cuales son los riesgos mas relevantes y como afectan al proyecto, donde riesgo bajo es el riesgo que menos relevancia tiene y riesgo intolerable el que mas y segun esta relevancia se deben tratar.">  ADMINISTRACIÓN DE RIESGOS</abbr>
+                <br>
                 
                 <br>
 
                 <table id="tabla" class="table table-bordered table-hover ">
+
+
                     <thead>
                         <tr>
-                            <th style="text-align:center;">Riesgo Bajo</th>
+                            <th style="text-align:center;">Riesgo Intolerable</th>
                         </tr>
                     </thead>
-                    {% for RiesgoBajo1 in RiesgoBajo1 %}
+                    {% for RiesgoIntolerable in RiesgoIntolerable %}
                     <tbody>
 
-                        <td>{{RiesgoBajo1.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
+                        <td>{{RiesgoIntolerable.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
 
                     </tbody>
                     {% endfor %}
-                    {% for RiesgoBajo2 in RiesgoBajo2 %}
+
+
+
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;">Riesgo Importante</th>
+                        </tr>
+                    </thead>
+                    {% for RiesgoImportante1 in RiesgoImportante1 %}
                     <tbody>
 
-                        <td>{{RiesgoBajo2.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
+                        <td>{{RiesgoImportante1.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
 
                     </tbody>
                     {% endfor %}
-                    {% for RiesgoBajo3 in RiesgoBajo3 %}
+                    {% for RiesgoImportante2 in RiesgoImportante2 %}
                     <tbody>
 
-                        <td>{{RiesgoBajo3.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
+                        <td>{{RiesgoImportante2.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
 
                     </tbody>
                     {% endfor %}
@@ -176,44 +187,41 @@
 
 
 
-
                     <thead>
                         <tr>
-                            <th style="text-align:center;">Riesgo Importante</th>
+                            <th style="text-align:center;">Riesgo Bajo</th>
                         </tr>
                     </thead>
-                    {% for RiesgoImportante1 in RiesgoImportante1 %}
+                    {% for RiesgoBajo1 in RiesgoBajo1 %}
                     <tbody>
 
-                        <td>{{RiesgoImportante1.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
+                        <td>{{RiesgoBajo1.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
 
                     </tbody>
                     {% endfor %}
-                    {% for RiesgoImportante2 in RiesgoImportante2 %}
+                    {% for RiesgoBajo2 in RiesgoBajo2 %}
                     <tbody>
 
-                        <td>{{RiesgoImportante2.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
+                        <td>{{RiesgoBajo2.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
+
+                    </tbody>
+                    {% endfor %}
+                    {% for RiesgoBajo3 in RiesgoBajo3 %}
+                    <tbody>
+
+                        <td>{{RiesgoBajo3.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
 
                     </tbody>
                     {% endfor %}
 
+                    
 
 
 
 
 
-                    <thead>
-                        <tr>
-                            <th style="text-align:center;">Riesgo Intolerable</th>
-                        </tr>
-                    </thead>
-                    {% for RiesgoIntolerable in RiesgoIntolerable %}
-                    <tbody>
 
-                        <td>{{RiesgoIntolerable.descriptionRisk|striptags|safe|truncatechars:"500"}}</td>
-
-                    </tbody>
-                    {% endfor %}
+                    
 
 
 

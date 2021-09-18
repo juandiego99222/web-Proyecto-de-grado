@@ -53,6 +53,7 @@
       
       
     }
+    
   </style>
   <!-- Fuentes -->
   <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700,700i" rel="stylesheet">
@@ -133,7 +134,7 @@
           </thead>
           <tbody>
             <tr>
-              <th>Nombre</th>
+              <th>Titulo</th>
               <td style="text-align:right;">{{project.title}}</td>
             </tr>
             <tr>
@@ -166,12 +167,12 @@
               <td style="text-align:right;">{{project.objetivos|linebreaksbr}}</td>
             </tr>
             <tr>
-              <th>Alcance</th>
+              <th> <abbr style="text-decoration: none; cursor: default !important; border: none;font-weight: bold;" title="DESCRIPCION DEL TRABAJO NECESARIO PARA ALCANZAR LOS OBJETiVOS">Alcance</abbr></th>
               <td style="text-align:right;">{{project.alcance|linebreaksbr}}</td>
             </tr>
             
             <tr>
-              <th>Hitos</th>
+              <th><abbr style="text-decoration: none; cursor: default !important; border: none;font-weight: bold;" title="AQUI SE DEFINE LAS ETAPAS O ACONTECIMIENTOS IMPORTANTES DURANTE EL DESARROLLO DE TODO EL PROYECTO.">Hitos</abbr></th>
               <td style="text-align:right;">{{ hitos.descriptionHito|linebreaksbr }}</td>
             </tr>
             
@@ -195,9 +196,13 @@
               }
               
              
+              
+             
             </script>
           </tbody>
         </table>
+        
+        
       </div>
       
       

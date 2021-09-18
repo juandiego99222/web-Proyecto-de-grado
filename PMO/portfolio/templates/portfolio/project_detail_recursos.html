@@ -103,7 +103,8 @@
         
         <br>
 
-        <legend id="aaa" style="font-size: 1.4em; margin-bottom: 10px;text-transform: uppercase;"> </legend>
+        
+        <abbr style="text-decoration: none; cursor: default !important; border: none;font-weight: bold; font-size: 1.4em; margin-bottom: 10px;" title="VALORACIÓN DE LOS RECURSOS DISPONIBLES QUE LE QUEDAN AL PROYECTO.(Presupuesto disponible = Presupuesto Total - Suma de total costos)">PRESUPUESTO DISPONIBLE: <h3 id="aaa"></h3></abbr>
         <br>
 
         <table id= "tabla" class="table table-bordered table-hover " >
@@ -187,8 +188,8 @@
           
           document.getElementById('tabla2').appendChild(nuevaFila2);
 
-          texto= "PRESUPUESTO DISPONIBLE: "
-          document.getElementById('aaa').innerHTML=texto + (presu-(total-presu)) ;
+          
+          document.getElementById('aaa').innerHTML= (presu-(total-presu)) ;
         </script>
       </div>
     </div>

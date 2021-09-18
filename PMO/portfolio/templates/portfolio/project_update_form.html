@@ -57,7 +57,7 @@
           <abbr title="DEFINE LAS METAS O PROPOSITOS DE LO QUE SE QUIERE ALCANZAR AL REALIZAR EL PROYECTO ">{{form.objetivos.label}}</abbr><br>
           {{form.objetivos}} <br>
 
-          <abbr title="TEXTO EMERGENTE QUE SE MOSTRARÁ AL PASAR EL CURSOR">{{form.alcance.label}}</abbr>
+          <abbr title="DESCRIBIR EL TRABAJO NECESARIO PARA ALCANZAR LOS OBJETiVOS">{{form.alcance.label}}</abbr>
           {{form.alcance}} <br>
           <abbr title="AQUI SE DEFINE A TODAS LAS PERSONAS U ORGANIZACIONES A QUIENES VA DIRIGIDO EL PROYECTO, O A QUIENES LES AFECTA DE ALGUNA MANERA LA REALIZACION DE ESTE">Interesados</abbr>
           {{ form_interested.management_form }}
@@ -141,7 +141,7 @@
           
           <!--formulario cronograma-->
           <div class="col-md-6" style="float:right;">
-            <abbr title="EN ESTE ASPECTO SE DETERMINAN LAS DIFERENTES ACTIVIDADES DEL PROYECTO Y EL TIEMPO ESTIMADO PARA CADA UNA DE ELLAS.">Cronograma</abbr>
+            <abbr title="EN ESTE ASPECTO SE DETERMINAN LAS DIFERENTES ACTIVIDADES DEL PROYECTO Y EL TIEMPO ESTIMADO PARA CADA UNA DE ELLAS. (NOTA: ORDEN SE REFIERE AL ORDEN DE LAS ACTIVIDADES, DONDE 0 ES LA PRIMERA ACTIVIDAD">Cronograma</abbr>
             {{ form_schedule.management_form }}
 
             {% for aa in form_schedule %}
