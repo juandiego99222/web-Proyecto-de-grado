@@ -2,6 +2,7 @@ from os import name
 from django import forms
 from .models import Project,Interested,Cost,Hito,Risk,Budget, Schedule,Files
 from django.forms.models import inlineformset_factory
+from ckeditor.fields import RichTextFormField
 
 class ProjectForm(forms.ModelForm):
 
@@ -13,7 +14,7 @@ class ProjectForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class':'form-control'}),
             'content': forms.Textarea(attrs={'class':'form-control','rows':3}), 
             'alcance': forms.Textarea(attrs={'class':'form-control','rows':2}), 
-            'objetivos': forms.Textarea(attrs={'class':'form-control','rows':2}), 
+            'objetivos': RichTextFormField(),
             'created':forms.SelectDateWidget(attrs={'class':'form-control-sm'}), 
             'completed':  forms.SelectDateWidget(  attrs={'class':'form-control-sm'}),
             

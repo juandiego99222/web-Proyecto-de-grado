@@ -1,11 +1,12 @@
 {% extends 'core/baseCrud.html' %}
 {% load static %}
+<script type="text/javascript" src="{% static 'ckeditor/css/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/css/ckeditor/ckeditor.js' %}"></script>
 {% load has_group %}
 {% block title %}Crear página{% endblock %}
 {% block content %}
-<script type="text/javascript" src="{% static 'ckeditor/css/ckeditor-init.js' %}"></script>
-<script type="text/javascript" src="{% static 'ckeditor/css/ckeditor/ckeditor.js' %}"></script>
-<link href="{% static 'css/custom_ckeditor.css' %}" rel="stylesheet">
+
+<link href="{% static 'portfolio/css/custom_ckeditor.css' %}" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport"
   content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
@@ -80,8 +81,9 @@
 
           <abbr
             title="DEFINE LAS METAS O PROPOSITOS DE LO QUE SE QUIERE ALCANZAR AL REALIZAR EL PROYECTO">{{form.objetivos.label}}</abbr><br>
-          {{form.objetivos}} <br>
-
+          {{form.objetivos}} 
+          {{ form.media }}
+          <br><br>
           <abbr title="DESCRIBIR EL TRABAJO NECESARIO PARA ALCANZAR LOS OBJETiVOS">{{form.alcance.label}}</abbr>
           {{form.alcance}} <br>
           <abbr
@@ -101,7 +103,9 @@
           <!--formulario hitos-->
           <abbr
             title="AQUI SE DEFINE LAS ETAPAS O ACONTECIMIENTOS IMPORTANTES DURANTE EL DESARROLLO DE TODO EL PROYECTO (ESTA SECCION DEBE ACTUALIZARCE CONFORME AVANZA EL PROYECTO)">Hitos</abbr>
-          {{form4.descriptionHito}} <br>
+          {{form4.descriptionHito}}
+          
+          <br>
 
           <!--formulario riesgos-->
           <abbr
