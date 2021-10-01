@@ -25,7 +25,7 @@ class Project(models.Model):
     created= models.DateTimeField(verbose_name="Fecha de creacion",  default=now)
     completed= models.DateTimeField(verbose_name="Fecha de finalizacion",  default=now)
     alcance= models.TextField(verbose_name="Alcance",null=True)
-    objetivos= RichTextField(verbose_name="Objetivos",null=True)
+    objetivos= models.TextField(verbose_name="Objetivos",null=True)
     estado=models.CharField(max_length=32,null=True,choices=[
         ('Iniciado','Iniciado'),
         ('En Progreso','En Progreso'),

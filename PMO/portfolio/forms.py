@@ -14,7 +14,7 @@ class ProjectForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class':'form-control'}),
             'content': forms.Textarea(attrs={'class':'form-control','rows':3}), 
             'alcance': forms.Textarea(attrs={'class':'form-control','rows':2}), 
-            'objetivos': RichTextFormField(),
+            'objetivos': forms.Textarea(attrs={'class':'form-control','rows':2}), 
             'created':forms.SelectDateWidget(attrs={'class':'form-control-sm'}), 
             'completed':  forms.SelectDateWidget(  attrs={'class':'form-control-sm'}),
             
